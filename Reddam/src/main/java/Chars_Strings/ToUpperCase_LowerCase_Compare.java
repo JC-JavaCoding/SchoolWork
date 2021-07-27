@@ -17,25 +17,27 @@ public class ToUpperCase_LowerCase_Compare
     {
         String word1 = JOptionPane.showInputDialog("First word.");
         String word2 = JOptionPane.showInputDialog("Second word.");
-        String alphabetical = "";
-        int result = word1.compareTo(word2);
         
-        if (result > 0)
-        {
-            alphabetical = word2;
-        }
-        else if (result < 0)
-        {
-            alphabetical = word1;
-        }
-        else 
+        
+        if(word1.equals(word2))
         {
             System.out.println("Your words are the same you fool!");
-            alphabetical = word1;
         }
-        
-        System.out.println("Word: \""+ alphabetical +"\" is more alphabetical.");
-        alphabetical = alphabetical.toUpperCase();
-        System.out.println(alphabetical);
+        else
+        {
+            String alphabetical = "";
+            int result = word1.compareTo(word2);
+            if (result > 0)
+            {
+                alphabetical = word2;
+            }
+            else if (result < 0)
+            {
+                alphabetical = word1;
+            }
+            System.out.println("Word: \""+ alphabetical +"\" is more alphabetical. Uppercase: "+ alphabetical.toUpperCase() +". Lowercase: "+ alphabetical.toLowerCase());
+            alphabetical = alphabetical.toUpperCase();
+            System.out.println(alphabetical);
+        }
     }
 }
