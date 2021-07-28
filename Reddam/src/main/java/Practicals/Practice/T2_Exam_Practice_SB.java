@@ -1,4 +1,4 @@
-package Practicals;
+package Practicals.Practice;
 
 public class T2_Exam_Practice_SB
 {
