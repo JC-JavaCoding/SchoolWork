@@ -13,17 +13,14 @@ import java.util.Scanner;
  */
 public class CountCharacters
 {
-
+    private static double totalChars = 0;
     private static File file = new File("C:\\Users\\Jcj\\Documents\\NetBeansProjects\\SchoolWork\\Reddam\\src\\main\\resources\\sample-2mb-text-file.txt");
     private static int[] charCount = new int[27];//for alphabet and other
 
     public static void main(String[] args)
     {
         loop();
-        for (int i : charCount)
-        {
-            System.out.println(""+ i);
-        }
+       countChars();
     }
 
     private static void loop()
@@ -53,5 +50,16 @@ public class CountCharacters
     {
         if (Character.isAlphabetic(currChar)) charCount[(int) currChar - 97]++;
         else charCount[26] ++;
+        totalChars ++;
+    }
+    private static void countChars()
+    {
+         for (int i = 0; i < 26; i++)
+        {
+            int currAmount = charCount[i];
+            System.out.println(((char) (i +97)) + ": "+ currAmount/totalChars*100);
+//System.out.println( ((char) (i+97)) + "hi " + i/totalChars * 100);
+        }
+        System.out.println("Total Chars: "+ totalChars);
     }
 }
