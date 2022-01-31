@@ -47,7 +47,7 @@ public class EncodeWordThreeLetters
     {
         String output = "";
         
-        output += input.substring(0, 2) + input.substring(3, input.length()-1);
+        output +=  input.substring(3, input.length()) +""+ input.substring(0, 3);
         
         return output;
     }
@@ -60,7 +60,7 @@ public class EncodeWordThreeLetters
             switch(c)
             {
                 case 'z':
-                    output += "a";
+                    output += "A";
                     break;
                 default:
                     output += (char)((int)c + 1);
@@ -73,7 +73,7 @@ public class EncodeWordThreeLetters
     {
         String output = "";
         
-        for (int i = input.length(); i >=0; i++)
+        for (int i = (input.length() -1); i >=0; i--)
         {
             output += input.charAt(i);
         }
