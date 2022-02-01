@@ -40,9 +40,8 @@ public class ReplaceChar
         while (input2.contains(" "))
         {
             int spaceIndex = input2.indexOf(" ");
-            refactored2 = input2.substring(0, (spaceIndex)) + "*" + input2.substring(spaceIndex);//
-            //input2 = refactored2;
-            System.out.println(refactored2);
+            refactored2 = input2.substring(0, (spaceIndex)) + "*" + input2.substring(spaceIndex+1);//
+            input2 = refactored2;
         }
         
         System.out.println("new sentence: "+ refactored2);
