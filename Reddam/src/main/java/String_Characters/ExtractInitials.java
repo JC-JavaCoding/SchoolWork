@@ -27,7 +27,6 @@ public class ExtractInitials
         while (input.contains(" ") )//&& input.indexOf(" ") != input.lastIndexOf(" "))
         {
             initials += input.charAt(0);
-            System.out.println("charAt: "+ input.charAt(prevBlankIndx));
             input = input.substring(input.indexOf(" ")+1);
         }
         initials+= surname;
