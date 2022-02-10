@@ -5,34 +5,41 @@
 package String_Characters;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Jcj
  */
-public class ReadNames
+public class ReadNums
 {
+    private static String filepath = "data\\IntNums";
     public static void main(String[] args)
     {
-        String names = "";
+        //get sum
+        System.out.println("Sum: " + getSum());
+    }
+    private static int getSum()
+    {
+        int sum = 0;
+        
         try
         {
-            Scanner scFile = new Scanner(new File("Names.txt"));
+            Scanner sc =  new Scanner(new File(filepath));
             
-            while (scFile.hasNextLine())
+            while (sc.hasNextInt())
             {
-                names += scFile.nextLine();
+                sum += sc.nextInt();
             }
-        } 
-        catch (FileNotFoundException ex)
+            
+            sc.close();
+        }
+        catch(java.io.FileNotFoundException e)
         {
             System.out.println("Error");
         }
         
-        System.out.println("Names: "+ names);
+        return sum;
     }
 }
+
