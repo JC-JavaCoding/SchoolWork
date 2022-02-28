@@ -44,7 +44,7 @@ public class Client
         this.balance = balance;
     }
     public String toString()
-    {
+       {
         return "Client{" + "clientName=" + clientName + ", accountNumber=" + accountNumber + ", balance=" + balance + '}';
     }
     public void changeName(String surname, char initial)
