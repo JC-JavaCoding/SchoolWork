@@ -4,6 +4,8 @@
  */
 package Objects_Classes;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jcj
@@ -11,7 +13,7 @@ package Objects_Classes;
 public class ClientUI2 extends javax.swing.JFrame
 {
     private String accountNum = "";
-    private String name, surname;
+    private String name, surname, clientName;
     private double balance;
     /**
      * Creates new form ClientUI2
@@ -41,6 +43,8 @@ public class ClientUI2 extends javax.swing.JFrame
         accountNumberField = new javax.swing.JTextField();
         balanceField = new javax.swing.JTextField();
         acceptButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        displayTextArea = new javax.swing.JTextArea();
 
         jLabel1.setText("jLabel1");
 
@@ -71,6 +75,10 @@ public class ClientUI2 extends javax.swing.JFrame
             }
         });
 
+        displayTextArea.setColumns(20);
+        displayTextArea.setRows(5);
+        jScrollPane1.setViewportView(displayTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,17 +90,21 @@ public class ClientUI2 extends javax.swing.JFrame
                     .addComponent(accountNumber)
                     .addComponent(balanceLabel)
                     .addComponent(surnameLable))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(surnameField)
                     .addComponent(nameField)
                     .addComponent(accountNumberField)
                     .addComponent(balanceField, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(129, 129, 129)
                 .addComponent(acceptButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +127,9 @@ public class ClientUI2 extends javax.swing.JFrame
                     .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(acceptButton)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,11 +145,27 @@ public class ClientUI2 extends javax.swing.JFrame
         // TODO add your handling code here:
         accountNum = accountNumberField.getText();
         name = nameField.getText();
+        surname = surnameField.getText();
         balance = Double.parseDouble(balanceField.getText());
-        if (accountNum.length() <= 6 && 
-                accountNum.charAt(0) == '0' &&
-                ( (int)accountNum.charAt(1) + (int) accountNum.charAt(2) )/10 == 5)
-            Client client = new Client(name, accountNum, balance);
+        Client client;
+        
+        int firstChar = (int)accountNum.charAt(0);
+        int secondChar = (int)accountNum.charAt(1) - 48;
+        int thirdChar = (int)accountNum.charAt(2) - 48;
+        int fifthChar = (int)accountNum.charAt(4) - 48;
+        
+        if (accountNum.length() == 6 && 
+                accountNum.charAt(0) != '0' &&
+                ( secondChar + thirdChar)/10 == fifthChar)
+        {
+            client = new Client(name, accountNum, balance);
+            client.changeName(surname, name.charAt(0));
+            name = client.getClientName();
+            
+            displayTextArea.setText("Account number: "+ client.getAccountNumber() +"\nName: "+ client.getClientName() +"\nBalance: "+ balance);
+            if (client.getBalance() < 0) JOptionPane.showMessageDialog(null, "YOUR BALANCE IS OVERDRAWN");
+        } 
+        else JOptionPane.showMessageDialog(null, "IDK man, some problem.");
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     /**
@@ -189,7 +219,9 @@ public class ClientUI2 extends javax.swing.JFrame
     private javax.swing.JTextField accountNumberField;
     private javax.swing.JTextField balanceField;
     private javax.swing.JLabel balanceLabel;
+    private javax.swing.JTextArea displayTextArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField surnameField;
