@@ -44,6 +44,10 @@ public class PeopleManager
     private static void printPeople()
     {
         PersonArray pa = new PersonArray();
-        System.out.println("" +Arrays.toString(pa.personArray));
+        pa.print();
+        
+        pa.sortPeopleBecauseWeAreDumbAndLazy();
+        pa.print();
+//        System.out.println("" +Arrays.toString(pa.personArray));
     }
 }

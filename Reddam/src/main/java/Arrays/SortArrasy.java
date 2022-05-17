@@ -111,21 +111,17 @@ public class SortArrasy
         for (int sortedIndx = arr.length -1; sortedIndx >= 0; sortedIndx --)
         {
             boolean sorted = true;
-            improvedBubbleSecond(arr, sortedIndx, sorted);
-            if (sorted)break;
-        }
-    }
-    static void improvedBubbleSecond(int [] arr,int sortedIndx, boolean sorted)
-    {
-        for (int i = 0; i < sortedIndx; i ++)
-        {
-            if (arr[i] > arr[sortedIndx])
+            for (int i = 0; i < sortedIndx; i ++)
             {
-                int temp = arr[i];
-                arr[i] = arr[sortedIndx];
-                arr[sortedIndx] = temp;
-                sorted = false;
+                if (arr[i] > arr[sortedIndx])
+                {
+                    int temp = arr[i];
+                    arr[i] = arr[sortedIndx];
+                    arr[sortedIndx] = temp;
+                    sorted = false;
+                }
             }
+            if (sorted)break;
         }
     }
     /*
