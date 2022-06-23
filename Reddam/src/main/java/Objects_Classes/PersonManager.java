@@ -7,7 +7,10 @@ package Objects_Classes;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,7 +55,7 @@ public class PersonManager
             
             fw.append(name + " "+ surname + " "+ age +"\n");
             
-            size ++;
+            //size ++;
             
             fw.close();
         }
@@ -65,13 +68,27 @@ public class PersonManager
             e.printStackTrace();
         }
     }
-    public void delete(String name)
+    public void delete(int indx)
+    {
+        for (int i = indx; i < size; i++)
+        {
+            parr[i] = parr[i+1];
+        }
+        size -= 1;    
+        
+        try
+        {
+            FileWriter fw = new FileWriter(new File("src/main/resources/people.txt"));
+        } catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void moveLeft(int indx)
     {
         
-    }
-    private Person[] moveLeft(int indx)
-    {
-        return null;
+        
     }
     private Person[] moveRight(int indx)
     {

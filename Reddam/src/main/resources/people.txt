@@ -1,8 +1,1 @@
-person sur 16
-human hsur 90
-relative rsur 5
-bob mar 3
-henry hehe 4
-jj kk 7
-robby downy 45
-robby downy 45
+p l 6
