@@ -1,1 +1,6 @@
 p l 6
+person1 surname 16
+cliff bar 31
+cliff bar 31
+nar abb 16
+kyr son 17

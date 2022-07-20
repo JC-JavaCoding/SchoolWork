@@ -55,9 +55,10 @@ public class PersonManager
             
             fw.append(name + " "+ surname + " "+ age +"\n");
             
-            //size ++;
             
-            fw.close();
+            parr[size++] = new Person(name, surname, age);
+            
+           fw.close();
         }
         catch(java.io.FileNotFoundException e)
         {
@@ -94,7 +95,7 @@ public class PersonManager
     {
         return null;
     }
-    public void selectionSort(String firstName)
+    public void nameSort()
     {
         for (int startIndx = 0; startIndx < size; startIndx++)
         {
@@ -112,7 +113,7 @@ public class PersonManager
             parr[pos]= temp;
         }
     }
-    public void bubbleSort(int age)
+    public void ageSort()
     {
         for (int endIndx = size-1; endIndx >0; endIndx --)
         {
@@ -132,7 +133,10 @@ public class PersonManager
             if (sorted) break;
         }
     }
-
+    public String nameSearch(String name)
+    {
+        return "";
+    }
     @Override
     public String toString()
     {

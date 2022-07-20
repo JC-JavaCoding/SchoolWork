@@ -24,6 +24,7 @@ public class PeopleUI extends javax.swing.JFrame
             ex.printStackTrace();
         }
         initComponents();
+        peopleTextArea.setText(pm.toString());
     }
 
     /**
@@ -53,7 +54,7 @@ public class PeopleUI extends javax.swing.JFrame
         surnameField = new javax.swing.JTextField();
         ageField = new javax.swing.JTextField();
         nameSearchField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        searchNameButton = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -113,7 +114,14 @@ public class PeopleUI extends javax.swing.JFrame
 
         nameSearchField.setBorder(javax.swing.BorderFactory.createTitledBorder("Name Search"));
 
-        jButton1.setText("Search Name");
+        searchNameButton.setText("Search Name");
+        searchNameButton.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                searchNameButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,7 +153,7 @@ public class PeopleUI extends javax.swing.JFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nameSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(searchNameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
@@ -176,7 +184,7 @@ public class PeopleUI extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nameSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(searchNameButton, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(deleteButton)
@@ -200,14 +208,15 @@ public class PeopleUI extends javax.swing.JFrame
     private void ageSortButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ageSortButtonActionPerformed
     {//GEN-HEADEREND:event_ageSortButtonActionPerformed
         // TODO add your handling code here:
-        pm.bubbleSort(Integer.parseInt(ageField.getText()));
+        
+        pm.ageSort();
         peopleTextArea.setText(pm.toString());
     }//GEN-LAST:event_ageSortButtonActionPerformed
 
     private void nameSortButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nameSortButtonActionPerformed
     {//GEN-HEADEREND:event_nameSortButtonActionPerformed
         // TODO add your handling code here:
-        pm.selectionSort(nameField.getText());
+        pm.nameSort();
         peopleTextArea.setText(pm.toString());
     }//GEN-LAST:event_nameSortButtonActionPerformed
 
@@ -216,10 +225,13 @@ public class PeopleUI extends javax.swing.JFrame
         pm.delete(Integer.parseInt(arrayElementField.getText()));
         peopleTextArea.setText(pm.toString());
     }//GEN-LAST:event_deleteButtonActionPerformed
-    private void printArray()
-    {
-        peopleTextArea.append(pm.toString());
-    }
+
+    private void searchNameButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_searchNameButtonMouseClicked
+    {//GEN-HEADEREND:event_searchNameButtonMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_searchNameButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -265,7 +277,6 @@ public class PeopleUI extends javax.swing.JFrame
     private javax.swing.JButton ageSortButton;
     private javax.swing.JTextField arrayElementField;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -277,6 +288,7 @@ public class PeopleUI extends javax.swing.JFrame
     private javax.swing.JTextField nameSearchField;
     private javax.swing.JButton nameSortButton;
     private javax.swing.JTextArea peopleTextArea;
+    private javax.swing.JButton searchNameButton;
     private javax.swing.JTextField surnameField;
     // End of variables declaration//GEN-END:variables
 }
