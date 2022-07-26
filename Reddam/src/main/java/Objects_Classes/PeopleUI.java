@@ -229,7 +229,7 @@ public class PeopleUI extends javax.swing.JFrame
     private void searchNameButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_searchNameButtonMouseClicked
     {//GEN-HEADEREND:event_searchNameButtonMouseClicked
         // TODO add your handling code here:
-        
+        peopleTextArea.setText( pm.nameSearch(nameField.getText()).toString() );
     }//GEN-LAST:event_searchNameButtonMouseClicked
 
     /**

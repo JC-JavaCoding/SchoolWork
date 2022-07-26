@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 public class PersonManager
 {
     private Person p;
-    private Person [] parr = new Person[50];
+    private ArrayList<Person> parr;
     private int size = 0;
     
     public PersonManager() throws FileNotFoundException
@@ -37,9 +38,9 @@ public class PersonManager
             surname= lineSc.next();
             age = lineSc.nextInt();
             
-            parr[size] = new Person(name, surname, age);
-            
-            size++;
+            parr.add( new Person(name, surname, age));
+//            
+//            size++;
             
             lineSc.close();
         }
@@ -56,7 +57,7 @@ public class PersonManager
             fw.append(name + " "+ surname + " "+ age +"\n");
             
             
-            parr[size++] = new Person(name, surname, age);
+            parr.add(new Person(name, surname, age));
             
            fw.close();
         }
@@ -71,21 +72,20 @@ public class PersonManager
     }
     public void delete(int indx)
     {
-        for (int i = indx; i < size; i++)
-        {
-            parr[i] = parr[i+1];
-        }
-        size -= 1;    
-        
+        parr.remove(indx);
         try
         {
             FileWriter fw = new FileWriter(new File("src/main/resources/people.txt"));
+            
+            for (Person P: parr)
+            {
+                fw.append(p.toString() + "\n");
+            }
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
     }
-    
     private void moveLeft(int indx)
     {
         
@@ -102,15 +102,15 @@ public class PersonManager
             int pos = startIndx;
             for (int i = startIndx +1; i < size; i++)
             {
-                if ( parr[i].getName() .compareTo( parr[startIndx].getName() ) < 0 )
+                if ( parr.get(i).getName().compareTo( parr.get(startIndx).getName() ) < 0 )
                 {
                     pos = i;
                 }
             }
             
-            Person temp = parr[startIndx];
-            parr[startIndx] = parr[pos];
-            parr[pos]= temp;
+            Person temp = parr.get(startIndx);
+            parr.set(startIndx, parr.get(pos));
+            parr.set(pos, temp);
         }
     }
     public void ageSort()
@@ -121,11 +121,11 @@ public class PersonManager
             
             for (int j = 0; j < endIndx; j++)
             {
-                if (parr[j].getAge() > parr[endIndx].getAge())
+                if (parr.get(j).getAge() > parr.get(endIndx).getAge())
                 {
-                    Person temp = parr[j];
-                    parr[j] = parr[endIndx];
-                    parr[endIndx] = temp;
+                    Person temp = parr.get(j);
+                    parr.set(j, parr.get(endIndx));
+                    parr.set(endIndx, temp); 
                     
                     sorted = false;
                 }
@@ -133,17 +133,21 @@ public class PersonManager
             if (sorted) break;
         }
     }
-    public String nameSearch(String name)
+    public Person nameSearch(String name)
     {
-        return "";
+        for (Person p: parr)
+        {
+            if (p.getName().equalsIgnoreCase(name)) return p;
+        }
+        return null;
     }
     @Override
     public String toString()
     {
         String output =  "";
-        for (int i = 0; i < size; i++)
+        for (Person p : parr)
         {
-            output += parr[i].toString()+ "\n";
+            output += p.toString()+ "\n";
         }
         
         return output;
