@@ -5,7 +5,9 @@
 package Practicals.PAT_UI;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +28,23 @@ public class PopulateJComponents extends javax.swing.JFrame
         //jlist:
         DefaultListModel <String> listmodel = new DefaultListModel<>();
         listmodel.addAll(names);
+        studentList.setModel(listmodel);
+        
+        //combobox:
+        DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel();
+        comboModel.addAll(names);
+        studentComboBox.setModel(comboModel);
+        
+        //table:
+        String [] collumnNames = {"Name", "Surname", "Age", "Grade"};
+        String [][] data = { {"John", "Person", "15", "10"},
+                                        {"Peter", "Person", "12", "6"},
+                                        {"Cliff", "Bartholomew", "18", "12"},
+                                        {"Nar", "Abbot", "16", "11"}
+                                       };
+        DefaultTableModel tableModel = new DefaultTableModel(data, collumnNames);
+        
+        studentsTable.setModel(tableModel);
     }
     private ArrayList<String> getNamesList()
     {
@@ -55,13 +74,13 @@ public class PopulateJComponents extends javax.swing.JFrame
         studentComboBox = new javax.swing.JComboBox<>();
         comboBoxLabel = new javax.swing.JLabel();
         listLabel = new javax.swing.JLabel();
+        tableLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        studentsTable.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Student Table"));
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
@@ -72,12 +91,19 @@ public class PopulateJComponents extends javax.swing.JFrame
             },
             new String []
             {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Surname", "Age", "Grade"
             }
         ));
+        studentsTable.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                studentsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(studentsTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 270));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 210));
 
         studentList.setModel(new javax.swing.AbstractListModel<String>()
         {
@@ -85,11 +111,25 @@ public class PopulateJComponents extends javax.swing.JFrame
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        studentList.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                studentListMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(studentList);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 150));
 
         studentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        studentComboBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                studentComboBoxActionPerformed(evt);
+            }
+        });
         jPanel1.add(studentComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
         comboBoxLabel.setText("jLabel1");
@@ -97,6 +137,9 @@ public class PopulateJComponents extends javax.swing.JFrame
 
         listLabel.setText("jLabel2");
         jPanel1.add(listLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
+
+        tableLabel.setText("jLabel1");
+        jPanel1.add(tableLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +154,24 @@ public class PopulateJComponents extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void studentListMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_studentListMouseClicked
+    {//GEN-HEADEREND:event_studentListMouseClicked
+        // TODO add your handling code here:
+        listLabel.setText(studentList.getSelectedValue());
+    }//GEN-LAST:event_studentListMouseClicked
+
+    private void studentComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_studentComboBoxActionPerformed
+    {//GEN-HEADEREND:event_studentComboBoxActionPerformed
+        // TODO add your handling code here:
+        comboBoxLabel.setText((String)studentComboBox.getSelectedItem());
+    }//GEN-LAST:event_studentComboBoxActionPerformed
+
+    private void studentsTableMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_studentsTableMouseClicked
+    {//GEN-HEADEREND:event_studentsTableMouseClicked
+        // TODO add your handling code here:
+        tableLabel.setText( (String) studentsTable.getValueAt(studentsTable.getSelectedRow(), 0));
+    }//GEN-LAST:event_studentsTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -166,5 +227,6 @@ public class PopulateJComponents extends javax.swing.JFrame
     private javax.swing.JComboBox<String> studentComboBox;
     private javax.swing.JList<String> studentList;
     private javax.swing.JTable studentsTable;
+    private javax.swing.JLabel tableLabel;
     // End of variables declaration//GEN-END:variables
 }
