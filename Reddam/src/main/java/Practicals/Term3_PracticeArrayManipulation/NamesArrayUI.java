@@ -26,5 +26,8 @@ public class NamesArrayUI
         //insert 'Carrie':
         na.insert("Carrie");
         System.out.println(na.toString());
+        
+        //test something
+        na.sort();
     }
 }

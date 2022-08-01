@@ -40,20 +40,21 @@ public class NamesArray
     
     public void sort()
     {
-        for (int endIndx = size; endIndx >0; endIndx --)
+        for (int endIndx = size-1; endIndx > 0; endIndx --)
         {
+            boolean sorted = true;
             for (int i = 0; i < endIndx; i++)
             {
-                boolean sorted = true;
-                if (names[i].compareTo(names[i+1]) < 0)
+                
+                if (names[i].compareTo(names[i+1]) > 0)
                 {
                     String temp = names[i];
                     names[i] = names[i+1];
                     names[i+1] = temp;
                     sorted = false;
                 }
-                if (sorted) break;
             }
+            if (sorted) break;
         }
     }
     public int search(String name)
@@ -63,11 +64,12 @@ public class NamesArray
         
         //search for name, binary search:
         int startIndx = 0, endIndx = size,  middleIndx = (startIndx + endIndx) /2;
-        while (startIndx != endIndx)
+        while (startIndx <= endIndx)
         {
             if (names[middleIndx].equalsIgnoreCase(name)) return middleIndx;
-            else if (names[middleIndx].compareTo(name) < 0) startIndx = middleIndx;
-            else if (names[middleIndx].compareTo(name) > 0) endIndx = middleIndx;
+            else if (names[middleIndx].compareTo(name) < 0) startIndx = middleIndx + 1;
+            else if (names[middleIndx].compareTo(name) > 0) endIndx = middleIndx - 1;
+            middleIndx = (startIndx + endIndx) / 2;
         }
         return -1;
     }
@@ -76,15 +78,19 @@ public class NamesArray
         //sort array
         sort();
         
-        int insertIndx = 0;
+        int insertIndx = size-1;
         //find place to insert
         for (int i = 0; i < size; i ++)
         {
-            if (names[i].compareTo(name) < 0 && names[i+1].compareTo(name) > 0) insertIndx = i+1;
+            if (names[i].compareTo(name) > 0) 
+            {
+                insertIndx = i;
+                break;
+            } 
             else insertIndx = size;
         }
         if(insertIndx != size) shiftRight(insertIndx);
-        
+        size++;
         names[insertIndx] = name;
     }
     public void delete(String name)
@@ -96,14 +102,15 @@ public class NamesArray
     }    
     private void shiftLeft(int shiftIndx)
     {
-        for (int i = shiftIndx; i < size--; i++)
+        for (int i = shiftIndx; i < size; i++)
         {
             names[i] = names[i+1];
         }
+        size -=1;
     }
     private void shiftRight(int shiftIndx)
     {
-        for (int i = ++size; i > shiftIndx; i--)
+        for (int i = size; i > shiftIndx; i--)
         {
             names[i] = names[i-1];
         }
