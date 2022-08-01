@@ -29,7 +29,7 @@ public class NamesArray
             //scan through file:
             while (sc.hasNextLine())
             {
-                names[size] = sc.nextLine();
+                names[size] = new Scanner(sc.nextLine()).next();
                 size++;
             }
         }catch (java.io.FileNotFoundException e)
@@ -40,12 +40,12 @@ public class NamesArray
     
     public void sort()
     {
-        for (int endIndx = size; endIndx >0; endIndx ++)
+        for (int endIndx = size; endIndx >0; endIndx --)
         {
             for (int i = 0; i < endIndx; i++)
             {
                 boolean sorted = true;
-                if (names[i].compareTo(names[i+1]) > 0)
+                if (names[i].compareTo(names[i+1]) < 0)
                 {
                     String temp = names[i];
                     names[i] = names[i+1];
@@ -58,6 +58,10 @@ public class NamesArray
     }
     public int search(String name)
     {
+        //sort array:
+        sort();
+        
+        //search for name, binary search:
         int startIndx = 0, endIndx = size,  middleIndx = (startIndx + endIndx) /2;
         while (startIndx != endIndx)
         {
@@ -69,6 +73,9 @@ public class NamesArray
     }
     public void insert(String name)
     {
+        //sort array
+        sort();
+        
         int insertIndx = 0;
         //find place to insert
         for (int i = 0; i < size; i ++)
@@ -80,6 +87,13 @@ public class NamesArray
         
         names[insertIndx] = name;
     }
+    public void delete(String name)
+    {
+        //find index
+        int delIndx = search(name);
+        //delete:
+        if(delIndx != -1)shiftLeft(delIndx);
+    }    
     private void shiftLeft(int shiftIndx)
     {
         for (int i = shiftIndx; i < size--; i++)
@@ -94,10 +108,6 @@ public class NamesArray
             names[i] = names[i-1];
         }
     }
-    public void delete(String name)
-    {
-        
-    }    
     @Override
     
     public String toString()

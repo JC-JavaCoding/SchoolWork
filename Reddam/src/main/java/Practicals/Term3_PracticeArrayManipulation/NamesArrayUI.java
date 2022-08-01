@@ -10,5 +10,21 @@ package Practicals.Term3_PracticeArrayManipulation;
  */
 public class NamesArrayUI
 {
-    
+    public static void main(String[] args)
+    {
+        NamesArray na = new NamesArray();
+        System.out.println(na.toString());
+        
+        //sort
+        na.sort();
+        System.out.println(na.toString());
+        
+        //delete 'Callie'
+        na.delete("Callie");
+        System.out.println(na.toString());
+        
+        //insert 'Carrie':
+        na.insert("Carrie");
+        System.out.println(na.toString());
+    }
 }
