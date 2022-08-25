@@ -113,11 +113,11 @@ public class SortArrasy
             boolean sorted = true;
             for (int i = 0; i < sortedIndx; i ++)
             {
-                if (arr[i] > arr[sortedIndx])
+                if (arr[i] > arr[i+1])
                 {
                     int temp = arr[i];
-                    arr[i] = arr[sortedIndx];
-                    arr[sortedIndx] = temp;
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
                     sorted = false;
                 }
             }
@@ -131,7 +131,15 @@ public class SortArrasy
     {
         for (int startIndex = 0; startIndex < arr.length; startIndex++)
         {
-            selectionSecond(arr, startIndex);
+            for (int i = startIndex+1; i < arr.length; i++)
+            {
+                if(arr[i] < arr[startIndex])
+                {
+                    int temp = arr[i];
+                    arr[i] = arr[startIndex];
+                    arr[startIndex] = temp;
+                }
+            }
         }
     }
     static void selectionSecond(int[] arr, int startIndex)
@@ -152,17 +160,19 @@ public class SortArrasy
     static void improvedSelectionSort(int [] arr)
     {
         
-        for (int startIndex = 0; startIndex < arr.length; startIndex++)
+        for (int startIndex = 0; startIndex < arr.length - 1; startIndex++)//'arr.length' here can be size in practical
         {
-            int largest = arr[startIndex];
+            int largestIndx = startIndex;
             for (int i = startIndex+1; i < arr.length; i++)
             {
-                if(arr[i] > largest)
+                if(arr[i] > arr[largestIndx])
                 {
-                    largest = arr[i];
+                    largestIndx = i;
                 }
-                
             }
+            int temp = arr[largestIndx];
+            arr[largestIndx] = arr[startIndex];
+            arr[startIndex] = temp;
         }
     }
 }
