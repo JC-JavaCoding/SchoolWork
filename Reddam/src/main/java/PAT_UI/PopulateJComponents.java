@@ -2,9 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Practicals.PAT_UI;
+package PAT_UI;
 
+import PAT_Backend.DataBaseManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +30,7 @@ public class PopulateJComponents extends javax.swing.JFrame
         
         ArrayList<String> names = getNamesList();
         
+/*  to get from inserted values        
         //jlist:
         DefaultListModel <String> listmodel = new DefaultListModel<>();
         listmodel.addAll(names);
@@ -42,17 +48,64 @@ public class PopulateJComponents extends javax.swing.JFrame
                                         {"Cliff", "Bartholomew", "18", "12"},
                                         {"Nar", "Abbot", "16", "11"}
                                        };
+        */
+        String [] collumnNames = {"ID", "Name", "Surname", "Age"};
+        String [][] data = getStudentsArray();
+        
+        
         DefaultTableModel tableModel = new DefaultTableModel(data, collumnNames);
         
         studentsTable.setModel(tableModel);
+    }
+    private String[][] getStudentsArray()
+    {
+        String [][] data = new String [10][4];
+        
+        DataBaseManager bd = new DataBaseManager();
+        try
+        {
+            ResultSet students = bd.query("Select * from peopleTable_testUI;");
+            
+            int currRow = 0;
+            while (students.next())
+            {
+//                data[currRow][1] = (students.getString(1));
+//                data[currRow][2] = (students.getString(2));
+//                data[currRow][3] = (students.getString(3));
+//                data[currRow][4] = (students.getString(4));
+                
+                for (int i = 1; i < 5; i++)
+                {
+                    data[currRow][i-1] = (students.getString(i));
+                }
+                
+                currRow ++;
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PopulateJComponents.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return data;
     }
     private ArrayList<String> getNamesList()
     {
         ArrayList<String> names = new ArrayList<>();
         
-        names.add("John");
-        names.add("Steve");
-        names.add("Bob");
+        DataBaseManager bd = new DataBaseManager();
+        
+        try
+        {
+            ResultSet students = bd.query("Select \'name\' from peopleTable_testUI;");
+            
+            while (students.next())
+            {
+                names.add(students.getString(1));
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PopulateJComponents.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return names;
     }
