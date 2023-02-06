@@ -28,8 +28,6 @@ public class PopulateJComponents extends javax.swing.JFrame
     {
         initComponents();
         
-        ArrayList<String> names = getNamesList();
-        
 /*  to get from inserted values        
         //jlist:
         DefaultListModel <String> listmodel = new DefaultListModel<>();
@@ -49,13 +47,29 @@ public class PopulateJComponents extends javax.swing.JFrame
                                         {"Nar", "Abbot", "16", "11"}
                                        };
         */
+
+        /*From Database*/
+        ArrayList<String> names = getNamesList();
+        
+        //jlist:
+        DefaultListModel <String> listmodel = new DefaultListModel<>();
+        listmodel.addAll(names);
+        studentList.setModel(listmodel);
+        studentList.setSelectedIndex(0);
+        
+        //combobox:
+        DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel();
+        comboModel.addAll(names);
+        studentComboBox.setModel(comboModel);
+        studentComboBox.setSelectedIndex(0);
+        
+        //jTable
         String [] collumnNames = {"ID", "Name", "Surname", "Age"};
         String [][] data = getStudentsArray();
         
-        
         DefaultTableModel tableModel = new DefaultTableModel(data, collumnNames);
-        
         studentsTable.setModel(tableModel);
+        
     }
     private String[][] getStudentsArray()
     {
@@ -68,17 +82,13 @@ public class PopulateJComponents extends javax.swing.JFrame
             
             int currRow = 0;
             while (students.next())
-            {
-//                data[currRow][1] = (students.getString(1));
-//                data[currRow][2] = (students.getString(2));
-//                data[currRow][3] = (students.getString(3));
-//                data[currRow][4] = (students.getString(4));
-                
+            {                
                 for (int i = 1; i < 5; i++)
                 {
                     data[currRow][i-1] = (students.getString(i));
                 }
                 
+                /*Incriment row count*/
                 currRow ++;
             }
         } catch (SQLException ex)
@@ -96,7 +106,7 @@ public class PopulateJComponents extends javax.swing.JFrame
         
         try
         {
-            ResultSet students = bd.query("Select \'name\' from peopleTable_testUI;");
+            ResultSet students = bd.query("Select name from peopleTable_testUI;");
             
             while (students.next())
             {
@@ -173,9 +183,9 @@ public class PopulateJComponents extends javax.swing.JFrame
         });
         jScrollPane2.setViewportView(studentList);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 110, 150));
 
-        studentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        studentComboBox.setToolTipText("");
         studentComboBox.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -189,7 +199,8 @@ public class PopulateJComponents extends javax.swing.JFrame
         jPanel1.add(comboBoxLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, -1, -1));
 
         listLabel.setText("jLabel2");
-        jPanel1.add(listLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
+        listLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Selected List Name:"));
+        jPanel1.add(listLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 130, -1));
 
         tableLabel.setText("jLabel1");
         jPanel1.add(tableLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, -1, -1));
