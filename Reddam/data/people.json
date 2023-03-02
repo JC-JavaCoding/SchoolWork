@@ -1,0 +1,22 @@
+[
+	{
+		name : "Clif",
+		surname : "Bart",
+		age : 32
+	},
+	{
+		name : "Nar",
+		surname : "Abb",
+		age : 18
+	},
+	{
+		name : "Nee",
+		surname : "Ran",
+		age : 18
+	},
+	{
+		name : "Gaj",
+		surname : "Bart",
+		age : 17
+	}
+]
